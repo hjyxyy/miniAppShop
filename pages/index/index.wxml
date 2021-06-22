@@ -26,36 +26,6 @@
   </view>
   <!-- 加载页面结束 -->
   <block wx:else>
-    <form bindsubmit="search_cancel" wx:if="{{searchView}}" report-submit="true">
-      <view class="search-box">
-
-        <view class="input-box">
-          <view style="font-size: 0">
-            <image class="search-icon" src="/images/icon-search.png"></image>
-          </view>
-          <view style="width: 100%">
-            <input focus='{{searchView}}' bindblur="inputBlur" name='search_value' bindconfirm="inputConfirm" bindfocus="inputFocus" class="search-input" confirmType="search" style="width: 100%"></input>
-          </view>
-        </view>
-
-        <view>
-          <button type="primary" formType="submit" style='display:inline-block;height:64rpx;line-height:68rpx;color:#00c203;white-space:nowrap;padding:0 24rpx;margin-right:-24rpx;position:static;background:#eee;' class="search-cancel">搜索</button>
-        </view>
-
-      </view>
-    </form>
-    <view class='tab'>
-      <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
-        <view class='tablist'>
-          <view wx:for="{{twoList}}" wx:key="id" scroll-x class='item {{current==index?"select":""}}' data-pos='{{index}}' data-tabid='{{item.id}}' bindtap='tabItemClick'>
-            <text class='tab-text'>{{item.name}}</text>
-          </view>
-        </view>
-      </scroll-view>
-      <view class='searchWrap' bindtap='searchView'>
-        <image class="search-icon1" src="/images/icon-search.png"></image>
-      </view>
-    </view>
     <swiper class='out' current='{{current}}' autoplay="{{false}}" bindchange="contentChange">
       <swiper-item wx:for="{{twoList}}" wx:for-item="item" wx:key="id">
         <scroll-view scroll-y="true" bindscrolltolower="obm" >
