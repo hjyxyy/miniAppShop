@@ -50,11 +50,12 @@
     "pages/distribution/detail"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "来客电商",
+    "enablePullDownRefresh": true,
     "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true
+    "navigationStyle": "default"
   },
   "tabBar": {
     "color": "#666666",
@@ -69,16 +70,10 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/new/new",
-        "iconPath": "images/icons/new.png",
-        "selectedIconPath": "images/icons/newopen.png",
-        "text": "新品"
-      },
-      {
         "pagePath": "pages/search/search",
         "iconPath": "images/icons/seach.png",
         "selectedIconPath": "images/icons/seachopen.png",
-        "text": "搜索"
+        "text": "分类"
       },
       {
         "pagePath": "pages/cart/cart",
@@ -90,7 +85,7 @@
         "pagePath": "pages/user/user",
         "iconPath": "images/icons/me.png",
         "selectedIconPath": "images/icons/meopen.png",
-        "text": "个人中心"
+        "text": "我的"
       }
     ]
   },

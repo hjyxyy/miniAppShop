@@ -37,16 +37,18 @@ page{
   /*再设上下padding增加高度，总高42px*/  
   padding: 6px 0;  
   /*只设下边线*/  
-  border-bottom: 1px solid #dedede;  
   /*文字14px*/  
-  font-size: 14px; 
+  font-size: 12px; 
   overflow:hidden;
+  color: #333333; 
+
 }  
 /*左侧栏list的item被选中时*/  
 .nav_left .nav_left_items.active{  
   /*背景色变成白色*/  
   background: #fff;  
-  color: #7a896c; 
+  color: #ff0000; 
+  font-weight: bold;
 }  
 /*右侧栏主盒子*/  
 .nav_right{  
