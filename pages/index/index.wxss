@@ -247,12 +247,18 @@ swiper {
 }
 .twos_cont{
   margin: 0 auto;
-  padding-top: 15rpx;
+  padding-top: 10rpx;
 }
 .cont {
-  width: 100%;
+  width: 92%;
   margin: 0 auto;
   padding-top: 10rpx;
+  position: relative;
+  top: 50px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 .cont_0 {
   width: 100%;
@@ -275,7 +281,7 @@ swiper {
   background:#fff;
   display:inline-block;
   width:46%;
-  margin-left:20rpx;
+  margin-left:19rpx;
   font-size:13px;
   border-radius: 5px;
 }
@@ -322,6 +328,7 @@ swiper {
 .cont .photo {
   background:#fff;
   display:inline-block;
+  border-radius: 8rpx;
 }
 .co .title {
   font-size: 32rpx;
@@ -422,7 +429,7 @@ align-content:flex-start;
     align-items:center;
     justify-content: center;
     flex-wrap: wrap; 
-    width: 25%; 
+    width: 20%; 
     text-align: center; 
     margin: 10rpx 0;
 }
@@ -432,7 +439,9 @@ align-content:flex-start;
   flex-wrap:wrap;
   width:100%;
   text-align:center;
-  justify-content:space-between;
+  margin:10rpx 0;
+  justify-content:space-around;
+  box-shadow: 3px 3px 3px #ccc;
 }
 .unit image {
   margin:0 auto;
@@ -466,8 +475,11 @@ align-content:flex-start;
  height: 100%;
 }
 .section {
+  width: 95%;
   margin: 0 auto;
   background:#fff;
+  margin-bottom:15rpx;
+  margin-top: 10rpx;
 }
 
 @font-face {font-family: "iconfont";
@@ -731,4 +743,35 @@ button{
    white-space:nowrap;
    overflow:hidden;
    text-overflow:ellipsis;
+}
+
+.recommend_bk {
+  height: 100px;
+  background-color: #ff0000;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 6rpx;
+}
+.recommend_title {
+  height: 60px;
+  line-height: 60px;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 0px 20px;
+  font-weight: bold;
+}
+.recommend_desc {
+  font-size: 12px;
+}
+.recommend_bk_cover {
+  width: 100%;
+  height: 40px;
+  border-radius: 100px 100px 0px 0px;
+  background-color: #fff;
+  overflow: hidden;
+}
+page {
+  background-color: #fff;
+  
 }

@@ -28,7 +28,7 @@
   <block wx:else>
     <swiper class='out' current='{{current}}' autoplay="{{false}}" bindchange="contentChange">
       <swiper-item wx:for="{{twoList}}" wx:for-item="item" wx:key="id">
-        <scroll-view scroll-y="true" bindscrolltolower="obm" >
+        <scroll-view scroll-y="true" bindscrolltolower="obm">
           <!-- /首页轮播图/ -->
           <swiper class="swiper-box" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" wx:if="{{item.id == 0 && banner.length >0}}">
             <block wx:for="{{banner}}" wx:key="id">
@@ -40,9 +40,6 @@
             </block>
           </swiper>
           <!-- /首页轮播图结束/ -->
-
-        
-
 
           <!-- /首页菜单/ -->
           <view class="section icons" wx:if="{{item.id > 0 && item.icons.length >0}}">
@@ -71,6 +68,14 @@
             </swiper>
           </view>
           <!-- 滚动公告条结束 -->
+
+          <View class='recommend_bk'>
+            <View class="recommend_title">
+              热门推荐
+              <Text class="recommend_desc">根据销量、搜索、好评综合得出</Text>
+            </View>
+            <View class="recommend_bk_cover"></View>
+          </View>
           <view class="cont" wx:if="{{item.id == 0}}">
             <block wx:for="{{item.twodata}}" wx:for-item="twodata" wx:key="id">
               <navigator  class="img-box" wx:if="{{twodata.url}}" url="{{twodata.url}}" hover-class="changestyle">

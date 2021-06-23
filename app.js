@@ -6,10 +6,10 @@ App({
     appKey: "", // 小程序密钥
     purchase: 0, //设置购物车刷新
     indexchase: false, //设置首页刷新
-    frontColor: '#ffffff',
     one: false,
-    bf_color: '#FF6347',
-    h_color: '#FF63477',
+    // bf_color: '#FF6347',
+
+    // h_color: '#FF63477',
     order: {},
     laikeUrl: util.getUri(),
     titlee: '',
