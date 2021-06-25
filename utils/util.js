@@ -84,7 +84,7 @@ function getUesrBgplus(that, app, is) {
 function getUri() {
   // return 'http://localhost/open/app/LKT/index.php?module=api&software_name=3&edition=1.0'
   // return 'https://hyjyxyy.top/LKT/index.php?module=api&software_name=3&edition=1.0'
-  return 'http://49.234.24.197/LKT/index.php?module=api&software_name=3&edition=1.0'
+  return 'http://81.68.95.186/LKT/index.php?module=api&software_name=3&edition=1.0'
 
 }
 
