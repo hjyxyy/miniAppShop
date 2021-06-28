@@ -243,14 +243,14 @@
           <view class="comment_box" wx:for="{{comments}}" wx:key="id" >
             <view class="comment">
               <view>
-                <image style='width:60rpx;height:60rpx;background:#eee;border-radius:50%' src='{{item.headimgurl}}'></image>
+                <image style='width:60rpx;height:60rpx;background:#eee;border-radius:50%' src="{{item.headimgurl|| 'https://j.mousenat.cn/LKT/images/1624463784348.jpeg'}}"></image>
               </view>
-              <view style="flex:1;font-size:30rpx;color:#333;margin-top:-5px;padding-left:10px;">{{item.user_name}}</view>
+              <view style="flex:1;font-size:30rpx;color:#333;margin-top:-5px;padding-left:10px;">{{item.user_name ||  '匿名用户'}}</view>
               <view style="font-size:24rpx;color:#666;">{{item.time}}</view>
             </view>
             <view class='comment_text'>{{item.content}}</view>
             <view class='comment_img'>
-              <image wx:for="{{item.images}}" wx:key="key" wx:for-item="url" src="{{url.url}}" data-src="{{url.url}}" catchtap="previewImage"></image>
+              <image wx:for="{{item.images}}" wx:key="key" wx:for-item="url" src="{{url.url }}" data-src="{{url.url}}" catchtap="previewImage"></image>
             </view>
             <view class='comment_pj'>
               <text style="float: left;color: #666;">规格:{{item.size}}</text>
