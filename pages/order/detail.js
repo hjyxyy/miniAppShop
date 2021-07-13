@@ -96,6 +96,7 @@ Page({
     pays: [],
     yuan: 0, //临时储存先前的总价格
     d_yuan: 0, //抵扣余额显示
+    pop: null,
   },
   return_goods: function (e) {
     var that = this, id = e.target.dataset.orderId;
@@ -313,6 +314,7 @@ Page({
     that.setData({
       remind: ''
     });
+    this.pop = this.selectComponent("#pop");
   },
   //获取插件
   get_plug: function (e) {

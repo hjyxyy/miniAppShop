@@ -64,13 +64,14 @@ Page({
     var that = this;
     console.log(res);
     var title = app.globalData.userInfo.nickName + '请你代付一件宝贝';
+
+
     return {
       title: title,
       imageUrl: '/images/big.jpeg',
       path: 'pages/order/detail?orderId=' + that.data.order_id,
-      success: function (res) {
-        console.log('转发成功')
-
+      complete: function (res) {
+        console.log('转发成功');
         wx.redirectTo({
           url: '../order/detail?orderId=' + that.data.order_id + '&&type1=22',
           success: function () {
@@ -85,7 +86,13 @@ Page({
       }
     }
   },
-
+  onUserOpStatistic: function(e) {
+    console.log(e)
+		if(e.op == 'share') {
+			var path = e.path;
+		}
+  },
+  
   onLoad: function (options) {
     var that = this;
     that.get_plug();
@@ -852,6 +859,14 @@ Page({
       if (e.currentTarget.dataset.status == 0) {
         that.setData({
           show_share: false
+        });
+        wx.redirectTo({
+          url: '../order/detail?orderId=' + that.data.order_id + '&&type1=22',
+          success: function () {
+            that.setData({
+              ispayOrder: false
+            })
+          }
         });
       }
     }.bind(this), 200);
