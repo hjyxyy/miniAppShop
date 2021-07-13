@@ -23,6 +23,10 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs);
     this.request = request;
+    // 打开调试
+    // wx.setEnableDebug({
+    //   enableDebug: true
+    // })
 
   },
   //控制授权登入

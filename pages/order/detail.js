@@ -367,7 +367,7 @@ Page({
         method: 'post',
         data: {
           order_id: that.data.orderId,
-          type1: that.data.type1,
+          type1: 22,
         },
         header: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -534,6 +534,10 @@ Page({
   },
   //触发支付
   payOrder: function (e) {
+    if (app.userlogin(1)) {
+			this.pop.clickPup(this)
+			return
+		}
     if (this.data.ispayOrder) {
       return
     }

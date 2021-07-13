@@ -34,6 +34,13 @@ Page({
     pay_xs: true,
     pages_sx: true,
     dz_stu: false,
+    show_share: false,
+    maskHidden: false,
+    share: {
+      friend: true,
+      friends: true
+    },
+    order_id: 0,
   },
   go: function (e) {
     console.log(e);
@@ -55,14 +62,23 @@ Page({
   //调取分享
   onShareAppMessage: function (res) {
     var that = this;
-    var id = that.data.productId;
-    var title = that.data.title;
-
+    console.log(res);
+    var title = app.globalData.userInfo.nickName + '请你代付一件宝贝';
     return {
       title: title,
-      path: '/product/detail?productId=' + id,
+      imageUrl: '/images/big.jpeg',
+      path: 'pages/order/detail?orderId=' + that.data.order_id,
       success: function (res) {
         console.log('转发成功')
+
+        wx.redirectTo({
+          url: '../order/detail?orderId=' + that.data.order_id + '&&type1=22',
+          success: function () {
+            that.setData({
+              ispayOrder: false
+            })
+          }
+        });
       },
       fail: function (res) {
         console.log('转发失败')
@@ -332,8 +348,34 @@ Page({
       pays.checked = false;
     }
     var pay_type = that.data.pays;
-    var i = 0;
     var one_pay = '';
+    if(pays.value == "friend_Pay"){
+      if(value){
+        for (var j = 0; j < pay_type.length; j++) {
+          if (pay_type[j].value == 'friend_Pay') {
+            pay_type[j].checked = true;
+          } else {
+            pay_type[j].checked = false;
+          }
+        }
+      }else{
+        for (var j = 0; j < pay_type.length; j++) {
+          if (pay_type[j].value == 'wxPay') {
+            pay_type[j].checked = true;
+          } else {
+            pay_type[j].checked = false;
+          }
+        }
+      }
+     
+      that.setData({
+        pays: pay_type
+      });
+    }
+
+   
+    var i = 0;
+   
     console.log(pay_type)
     for (var j = 0; j < pay_type.length; j++) {
       if (pay_type[j].checked) {
@@ -547,7 +589,7 @@ Page({
         }
 
       } else {
-        that.createProductOrder();
+        that.createProductOrder(e);
       }
 
     } else {
@@ -560,7 +602,7 @@ Page({
     }
   },
   // 确认订单
-  createProductOrder: function () {
+  createProductOrder: function (e) {
     var that = this;
     this.setData({
       btnDisabledbtnDisabled: false,
@@ -569,6 +611,8 @@ Page({
     var paytype = that.data.paytype;
     var type1 = that.data.type1;
     app.d.purchase = 1; //设置购物车刷新
+
+
     wx.request({
       url: app.d.laikeUrl + '&action=product&m=payment',
       method: 'post',
@@ -603,6 +647,16 @@ Page({
               title: '加载中',
             })
             that.wxpay(data.arr);
+          }
+          if(data.arr.pay_type == 'friend_Pay'){
+            wx.showToast({
+              title: '好友代付',
+              duration: 3000
+            })
+            that.setData({
+              order_id: data.arr.order_id,
+            });
+            that.friendPay(data.arr,e)
           }
         } else {
           wx.showToast({
@@ -710,6 +764,174 @@ Page({
       s()
     })
   },
+
+  friendPay: function (order,e){
+    console.log(order);
+    
+    this.set_share(e);
+  },
+  user_share: function () {
+    var that = this;
+    wx.showToast({
+      title: '图片生成中',
+      icon: 'loading',
+      duration: 1500,
+    });
+
+    app.request.wxRequest({
+      url: '&action=getcode&m=product_share',
+      data: {
+        product_img_path: that.data.itemData.photo_d,
+        product_title: that.data.title,
+        price: that.data.itemData.price_yh,
+        yprice: that.data.itemData.price,
+        scene: 'productId=' + that.data.productId + '&referee_openid=' + app.globalData.userInfo.user_id,
+        path: 'pages/product/detail',
+        id: app.globalData.userInfo.user_id,
+        pid: that.data.productId,
+        head: app.globalData.userInfo.avatarUrl,
+        name: app.globalData.userInfo.nickName,
+        type: 3
+      },
+      method: 'post',
+      success: function (res) {
+        that.setData({
+          maskHidden: true,
+          imagePath: res.url,
+        });
+      }
+    })
+
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    });
+    that.animation = animation;
+    animation.translateY(300).step();
+    that.setData({
+      animationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      that.setData({
+        animationData: animation,
+        show_share: false
+      })
+    }.bind(that), 200)
+  },
+  // 弹窗
+  set_share: function (e) {
+    console.log(app.userlogin(1))
+    if (app.userlogin(1)) {
+      this.pop.clickPup(this)
+      return
+    }
+    var that = this;
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    });
+    //定义点击的类型
+    that.animation = animation
+    animation.translateY(300).step();
+    that.setData({
+      animationData: animation.export()
+    })
+    if (e.currentTarget.dataset.status == 1 || e.currentTarget.dataset.status == null) {
+      that.setData({
+        show_share: true
+      });
+    }
+    setTimeout(function () {
+      animation.translateY(0).step()
+      that.setData({
+        animationData: animation
+      })
+      if (e.currentTarget.dataset.status == 0) {
+        that.setData({
+          show_share: false
+        });
+      }
+    }.bind(this), 200);
+  },
+  //点击保存到相册
+  baocun: function () {
+    var that = this;
+
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success() {
+              console.log('授权成功')
+            },
+            fail: function (res) {
+
+              wx.openSetting({
+                success: (res) => {
+
+                  res.authSetting = {
+                    "scope.userInfo": true,
+                    "scope.userLocation": true,
+                    "scope.writePhotosAlbum": true
+                  }
+
+                }
+              })
+            }
+          })
+        } else {
+
+        }
+      }
+    })
+
+    wx.downloadFile({
+      url: that.data.imagePath,
+      success: function (res) {
+        var tempFilePath = res.tempFilePath;
+
+        wx.saveImageToPhotosAlbum({
+          filePath: tempFilePath,
+          success(res) {
+            wx.showModal({
+              content: '图片已保存到相册，赶紧晒一下吧~',
+              showCancel: false,
+              confirmText: '好的',
+              confirmColor: '#333',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定');
+                  /* 该隐藏的隐藏 */
+                  that.setData({
+                    maskHidden: false
+                  })
+                }
+              }, fail: function (res) {
+
+              }
+            })
+          }
+        })
+
+      }
+    })
+
+  },
+
+  close_share: function (e) {
+    var that = this;
+    that.setData({
+      maskHidden: false
+    })
+  },
+
+
+
   // 调起微信支付
   wxpay: function (order) {
     console.log(order)
@@ -937,6 +1159,13 @@ Page({
       },
       success: function (res) {
         var plug_ins = res.data;
+        var sharPay = {
+          name:"好友代付",
+          value:"friend_Pay",
+          icon:"../../images/shced.png",
+          checked:false
+        }
+        plug_ins.pays.push(sharPay);
         that.setData({
           plug_coupon: plug_ins.coupon,
           plug_wallet: plug_ins.wallet,

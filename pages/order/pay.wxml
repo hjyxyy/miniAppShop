@@ -128,6 +128,8 @@
     </view>
   </form>
   <!--普通结算结束  -->
+
+
 </block>
 
 <!-- 弹窗 -->
@@ -153,3 +155,39 @@
     </view>
   </scroll-view>
 </view>
+
+
+<!-- 弹窗 -->
+<view class="drawer_screen" bindtap="set_share" data-index="0" data-status="0" wx:if="{{show_share}}"></view>
+  <view animation="{{animationData}}" class="drawer_attr_share" catchtouchmove="preventTouchMove" wx:if="{{show_share}}">
+    <view class='myyhq'> </view>
+    <view class='share_top'>
+      分享
+      <view class='close_share' bindtap="set_share" data-index="0" data-status="0">x</view>
+    </view>
+    <view class='fx_box'>
+
+      <view wx:if="{{share.friends}}" class='fx_img_box'>
+        <button open-type="share" hover-class="button-hover" style='line-height:normal;border:0;border-radius:0px;padding:0;font-size:12px;'>
+          <view>
+            <image class='fx_img' src='/images/wx.png'></image>
+          </view>
+          <view>微信好友</view>
+        </button>
+      </view>
+    </view>
+
+  </view>
+
+  <view class='imagePathBox' hidden="{{maskHidden == false}}">
+    <view class='images_bg'>
+      <view class='share_top'>
+        查看二维码
+        <view class='close_share' bindtap='close_share'>x</view>
+      </view>
+      <image src="{{imagePath}}" data-src="{{imagePath}}" catchtap="previewImage" class='shengcheng'></image>
+      <button class='baocun' style='background:#FF6347;' bindtap='baocun'>保存相册</button>
+      <view class='share_bottom'>保存图片到手机后，您可到朋友圈分享该商品图片</view>
+    </view>
+  </view>
+  

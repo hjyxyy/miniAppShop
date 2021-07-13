@@ -873,6 +873,7 @@ Page({
   },
   // 弹窗
   set_share: function (e) {
+    console.log(e)
     if (app.userlogin(1)) {
       this.pop.clickPup(this)
       return
